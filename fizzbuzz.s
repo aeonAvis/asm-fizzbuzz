@@ -80,13 +80,14 @@ loop:
 
 number:
 	; we need to convert %ebx to ascii before we print it
+	mov	rbp, rsi	; save stack pointer
 	mov	eax, ebx
 	mov	ecx, 10		; divisor
 	mov	r8d, 1		; number of digits + newline
 	push	LF
 
 .to_ascii:
-	xor	edx, edx	; reset edx
+	xor	edx, edx
 	div	ecx
 
 	add	dl, '0'		; convert remainder to ascii
@@ -105,6 +106,8 @@ number:
 	mov	rsi, rsp
 	mov	edx, r8d
 	syscall
+
+	mov	rbp, rsp	; restore stack pointer
 
 	inc	ebx
 	jmp	loop
