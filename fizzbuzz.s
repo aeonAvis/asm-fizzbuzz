@@ -27,17 +27,20 @@ loop:
 	cmp	ebx, 100	; loop condition
 	jg	end
 
-	; check divisibility by 15
-	mov	ecx, 15
-	call	is_divisible
-	jz	.fizzbuzz
-
 	; check divisibility by 3
 	mov	ecx, 3
 	call	is_divisible
-	jz	.fizz
+	jnz	.check_buzzonly	; it cannot be divisible by 15
 
-	; check divisibility by 5
+	; it is divisible by 3, alos check 5
+	mov	ecx, 5
+	call	is_divisible
+	jz	.fizzbuzz	; it is divisible by 15
+
+	jmp	.fizz		; it was only 3
+
+.check_buzzonly:
+	; it wasn't divisible by 3, now check 5
 	mov	ecx, 5
 	call	is_divisible
 	jz	.buzz
