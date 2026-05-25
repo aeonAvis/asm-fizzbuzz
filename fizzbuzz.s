@@ -80,7 +80,7 @@ loop:
 
 number:
 	; we need to convert %ebx to ascii before we print it
-	mov	rbp, rsi	; save stack pointer
+	mov	rbp, rsp	; save stack pointer
 	mov	eax, ebx
 	mov	ecx, 10		; divisor
 	mov	r8d, 1		; number of digits + newline
