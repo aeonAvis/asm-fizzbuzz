@@ -30,22 +30,22 @@ loop:
 	; check divisibility by 15
 	mov	rcx, 15
 	call	is_divisible
-	jz	fizzbuzz
+	jz	.fizzbuzz
 
 	; check divisibility by 3
 	mov	rcx, 3
 	call	is_divisible
-	jz	fizz
+	jz	.fizz
 
 	; check divisibility by 5
 	mov	rcx, 5
 	call	is_divisible
-	jz	buzz
+	jz	.buzz
 
 	; otherwise print the number
 	jmp	number
 
-fizz:
+.fizz:
 	; write Fizz
 	mov	rax, 1
 	mov	rdi, 1
@@ -56,7 +56,7 @@ fizz:
 	inc	rbx
 	jmp	loop
 
-buzz:
+.buzz:
 	; write Buzz
 	mov	rax, 1
 	mov	rdi, 1
@@ -67,7 +67,7 @@ buzz:
 	inc	rbx
 	jmp	loop
 
-fizzbuzz:
+.fizzbuzz:
 	; write FizzBuzz
 	mov	rax, 1
 	mov	rdi, 1
@@ -85,7 +85,7 @@ number:
 	mov	r8, 0		; number of digits
 	push	LF
 
-to_ascii:
+.to_ascii:
 	mov	rdx, 0		; reset rdx
 	div	rcx
 
@@ -97,7 +97,7 @@ to_ascii:
 	inc	r8
 
 	cmp	rax, 0
-	jne	to_ascii
+	jne	.to_ascii
 
 	inc	r8		; to include newline
 
