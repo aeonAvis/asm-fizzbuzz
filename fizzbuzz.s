@@ -14,7 +14,7 @@ section .text
 	global _start
 
 is_divisible:
-	mov	edx, 0
+	xor	edx, edx
 	mov	eax, ebx
 	div	ecx
 	test	edx, edx
@@ -86,7 +86,7 @@ number:
 	push	LF
 
 .to_ascii:
-	mov	edx, 0		; reset edx
+	xor	edx, edx	; reset edx
 	div	ecx
 
 	add	dl, '0'		; convert remainder to ascii
@@ -96,8 +96,8 @@ number:
 	mov	[rsp], dl
 	inc	r8d
 
-	cmp	eax, 0
-	jne	.to_ascii
+	test	eax, eax
+	jnz	.to_ascii
 
 	; write the number
 	mov	eax, 1
@@ -110,6 +110,6 @@ number:
 	jmp	loop
 
 end:
-	mov	edi, 0
+	xor	edi, edi
 	mov	eax, 60
 	syscall
