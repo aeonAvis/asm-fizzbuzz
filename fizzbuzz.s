@@ -13,6 +13,13 @@ section .data
 section .text
 	global _start
 
+is_divisible:
+	mov	rdx, 0
+	mov	rax, rbx
+	div	rcx
+	test	rdx, rdx
+	ret
+
 _start:
 	mov	rbx, 1		; loop counter
 
@@ -21,31 +28,19 @@ loop:
 	jg	end
 
 	; check divisibility by 15
-	mov	rdx, 0
-	mov	rax, rbx
 	mov	rcx, 15
-	div	rcx
-
-	cmp	rdx, 0
-	je	fizzbuzz	
+	call	is_divisible
+	jz	fizzbuzz
 
 	; check divisibility by 3
-	mov	rdx, 0
-	mov	rax, rbx
 	mov	rcx, 3
-	div	rcx
-
-	cmp	rdx, 0
-	je	fizz
+	call	is_divisible
+	jz	fizz
 
 	; check divisibility by 5
-	mov	rdx, 0
-	mov	rax, rbx
 	mov	rcx, 5
-	div	rcx
-
-	cmp	rdx, 0
-	je	buzz
+	call	is_divisible
+	jz	buzz
 
 	; otherwise print the number
 	jmp	number
